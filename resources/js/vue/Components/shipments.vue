@@ -14,13 +14,15 @@
             </b-table>
         </div>
         <!-- Info modal -->
-        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-            <pre>{{ infoModal.content }}</pre>
+        <b-modal size="xl" :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
+            <shipment_detail></shipment_detail>
+
         </b-modal>
     </div>
 </template>
 <script>
     import shipment_search from "./shipment_search";
+    import shipment_detail from "./shipment_detail";
     export default {
         data() {
             return {
@@ -60,7 +62,7 @@
                     shipment.description = sh.description;
                     shipment.shipment_date = sh.shipment_date;
                     shipment.delivery_date = sh.delivery_date;
-                    shipment.options = {id : sh.shipment_id};
+                    shipment.options = sh;
                     this.shipments.push(shipment);
                 })
             },
@@ -84,7 +86,8 @@
             }
         },
         components :{
-            shipment_search
+            shipment_search,
+            shipment_detail
         }
     }
 </script>

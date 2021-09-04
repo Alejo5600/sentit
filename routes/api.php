@@ -26,6 +26,7 @@ Route::middleware('auth:api')->group(function(){
     Route::prefix('Customer')->group(function (){
         Route::get('/getByDocument/{document}',[\App\Http\Controllers\CustomerController::class,'getByDocument']);
     });
+    Route::get('cities',[\App\Http\Controllers\CityController::class,'index']);
 });
 
 

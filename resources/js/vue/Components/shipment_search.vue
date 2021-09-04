@@ -17,7 +17,8 @@
                 </b-form-group>
             </b-col>
             <b-col cols="2">
-                <b-button>
+                <br>
+                <b-button class="mt-2">
                     <b-icon-search></b-icon-search>
                 </b-button>
             </b-col>
@@ -26,13 +27,41 @@
 </template>
 <script>
     export default {
+        mounted(){
+          this.getCities()
+        },
         data() {
             return {
                 form: {
                     city : ''
                 },
-                cities: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+                cities: [],
             }
         },
+        methods : {
+            getCities(){
+                fetch('api/cities',{
+                    method : 'GET',
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'Authorization' : 'Bearer '+localStorage.getItem("jwt")
+                    }
+                })
+                    .then(data => data.json())
+                    .then(data => {
+                        if(!data.success){
+                            return false;
+                        }
+                        console.log(data);
+                        this.cities = [];
+                        data.cities.forEach(city => {
+                            this.cities.push({
+                                text : city.name + ' ('+city.code+')',
+                                value : city.city_id
+                            })
+                        })
+                    });
+            },
+        }
     }
 </script>

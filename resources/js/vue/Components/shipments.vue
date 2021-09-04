@@ -2,7 +2,7 @@
     <div>
         <shipment_search></shipment_search>
         <div>
-            <b-table striped hover :items="shipments">
+            <b-table responsive  striped hover :items="shipments">
                 <template #cell(state)="row">
                     <b-badge :variant="colors[row.item.state.state_id -1 ]">{{row.item.state.name}}</b-badge>
                 </template>
@@ -14,7 +14,7 @@
             </b-table>
         </div>
         <!-- Info modal -->
-        <b-modal size="xl" :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
+        <b-modal size="xl" :id="infoModal.id" title="Shipment Detail" ok-only @hide="resetInfoModal">
             <shipment_detail :shipment="infoModal.item"></shipment_detail>
 
         </b-modal>
@@ -42,7 +42,7 @@
             }
         },
         mounted(){
-          this.getShipments()
+            this.getShipments();
         },
         methods : {
             resetInfoModal() {

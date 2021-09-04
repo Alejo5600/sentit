@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         ['SentIt\Repositories\CustomerAddressRepositoryInterface','SentIt\Domains\CustomerAddress\EloquentCustomerAddressRepository'],
         ['SentIt\Repositories\CustomerRepositoryInterface','SentIt\Domains\Customers\EloquentCustomerRepository'],
         ['SentIt\Repositories\StateRepositoryInterface','SentIt\Domains\States\EloquentStateRepository'],
+        ['SentIt\Repositories\CityRepositoryInterface','SentIt\Domains\Cities\EloquentCityRepository'],
     );
 
     private function bindRepositories(){

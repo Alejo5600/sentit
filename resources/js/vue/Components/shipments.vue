@@ -15,7 +15,7 @@
         </div>
         <!-- Info modal -->
         <b-modal size="xl" :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-            <shipment_detail></shipment_detail>
+            <shipment_detail :shipment="infoModal.item"></shipment_detail>
 
         </b-modal>
     </div>
@@ -29,7 +29,8 @@
                 infoModal: {
                     id: 'info-modal',
                     title: '',
-                    content: ''
+                    content: '',
+                    item : null
                 },
                 shipments: [],
                 colors : [
@@ -47,10 +48,12 @@
             resetInfoModal() {
                 this.infoModal.title = ''
                 this.infoModal.content = ''
+                this.infoModal.item = null;
             },
             info(item, index, button) {
                 this.infoModal.title = `Row index: ${index}`
                 this.infoModal.content = JSON.stringify(item, null, 2)
+                this.infoModal.item = item.options;
                 this.$root.$emit('bv::show::modal', this.infoModal.id, button)
             },
             showShipments(shipments){

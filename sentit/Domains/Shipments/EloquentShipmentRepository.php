@@ -18,7 +18,9 @@ class EloquentShipmentRepository extends EloquentRepository implements ShipmentR
                 'sender',
                 'initial_city',
                 'end_city',
-                'state'
+                'state',
+                'start_adress_obj',
+                'arrival_adress_obj',
             ]
         )->get();
     }

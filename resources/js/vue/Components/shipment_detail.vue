@@ -3,11 +3,10 @@
         <b-container>
             <b-row>
                 <b-col>
-                    <div class="h4 mb-0">
+                    <div class="h5 mb-0">
                         <b-row>
-
                             <b-col cols="3" v-for="state in states" v-bind:key="state.value">
-                                <b-icon :icon="actual_state >= state.value ? 'check-circle-fill' : 'check-circle-fill' " :variant="actual_state >= state.value ? 'success':'secondary'"></b-icon>
+                                <b-icon :icon="actual_state >= state.value ? 'check-circle-fill' : 'circle-fill' " :variant="actual_state >= state.value ? 'success':'secondary'"></b-icon>
                                 <label :class="actual_state >= state.value ? 'text-success' :'text-secondary'">{{state.name}}</label>
                             </b-col>
                         </b-row>
@@ -23,10 +22,12 @@
                 <b-col cols="6">
 
 
-                        <b-table-simple hover small>
+                        <b-table-simple  small>
                             <b-tbody>
-                                <b-th>State</b-th>
-                                <b-td></b-td>
+                                <b-tr v-for="(value,name) in info" v-bind:key="name+'_'+value">
+                                    <b-th>{{(name.charAt(0).toUpperCase()+name.slice(1)).split('_').join(' ')}}</b-th>
+                                    <b-td>{{value}}</b-td>
+                                </b-tr>
                             </b-tbody>
                         </b-table-simple>
 
@@ -42,6 +43,22 @@
         props : {
             shipment : Object
         },
+        mounted(){
+            console.log("Hola");
+            console.log(this.shipment);
+          this.info.sender = this.shipment.sender.name +' '+ this.shipment.sender.surname;
+          this.info.receiver = this.shipment.receiver.name +' '+ this.shipment.receiver.surname;
+          this.info.shipment_date = this.shipment.shipment_date;
+          this.info.delivery_date = this.shipment.delivery_date;
+          this.info.description = this.shipment.description;
+          this.info.sender_address = this.shipment.start_adress_obj.address;
+          this.info.receiver_address = this.shipment.arrival_adress_obj.address;
+          this.info.start_city = this.shipment.initial_city.name;
+          this.info.end_city = this.shipment.end_city.name;
+          this.actual_state = this.shipment.state_id;
+
+
+        },
         data(){
             return {
                 states : [
@@ -50,7 +67,18 @@
                     {name : "In Transit",value:3},
                     {name : "Delivered",value:4}
                 ],
-                actual_state : 1
+                info : {
+                    sender : '',
+                    receiver : '',
+                    description : '',
+                    shipment_date : '',
+                    delivery_date : '',
+                    sender_address : '',
+                    receiver_address : '',
+                    start_city : '',
+                    end_city : ''
+                },
+                actual_state : 0
             }
         }
     }

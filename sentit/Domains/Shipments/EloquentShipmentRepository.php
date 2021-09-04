@@ -10,6 +10,18 @@ use SentIt\Repositories\ShipmentRepositoryInterface;
 class EloquentShipmentRepository extends EloquentRepository implements ShipmentRepositoryInterface
 {
 
+    public function all()
+    {
+        return $this->model->with(
+            [
+                'receiver',
+                'sender',
+                'initial_city',
+                'end_city',
+                'state'
+            ]
+        )->get();
+    }
 
     /**
      * EloquentShipmentRepository constructor.

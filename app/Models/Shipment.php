@@ -10,4 +10,64 @@ class Shipment extends Model
     use HasFactory;
     protected $primaryKey = 'shipment_id';
     protected $fillable = ['description','shipment_date','start_address','arrival_address','created_by','state_id'];
+
+    function start_adress_obj(){
+        return $this->belongsTo(\App\Models\CustomerAddress::class,'start_address','customer_address_id');
+    }
+
+    function arrival_adress_obj(){
+        return $this->belongsTo(\App\Models\CustomerAddress::class,'arrival_address','customer_address_id');
+    }
+
+    function sender(){
+        return $this->hasOneThrough(
+            Customer::class,
+            CustomerAddress::class,
+            'customer_id',
+            'customer_id',
+            'start_address',
+            'customer_address_id'
+        );
+    }
+    function receiver(){
+        return $this->hasOneThrough(
+            Customer::class,
+            CustomerAddress::class,
+            'customer_id',
+            'customer_id',
+            'arrival_address',
+            'customer_address_id'
+        );
+    }
+
+    function initial_city(){
+        return $this->hasOneThrough(
+            City::class,
+            CustomerAddress::class,
+            'city_id',
+            'city_id',
+            'start_address',
+            'customer_address_id'
+        );
+    }
+
+    function end_city(){
+        return $this->hasOneThrough(
+            City::class,
+            CustomerAddress::class,
+            'city_id',
+            'city_id',
+            'arrival_address',
+            'customer_address_id'
+        );
+    }
+
+    public function state(){
+        return $this->belongsTo(
+            State::class,
+            'state_id',
+            'state_id'
+        );
+    }
+
 }

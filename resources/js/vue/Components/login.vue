@@ -55,7 +55,7 @@
         </b-container>
 
         <div>
-            <router-link to="/">Home</router-link>
+
             <router-link to="/header">Header</router-link>
 
         </div>
@@ -99,6 +99,7 @@
                     }
                     this.alertMsg= '';
                     this.hasAlert = false;
+                    localStorage.setItem("jwt",data.access_token);
 
                 })
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use SentIt\Exceptions\DomainRuleException;
 use SentIt\Repositories\CustomerAddressRepositoryInterface;
 use SentIt\Repositories\ShipmentRepositoryInterface;
@@ -38,12 +39,18 @@ class ShipmentController extends Controller
     public function index()
     {
         try {
+
+            DB::connection()->enableQueryLog();
+            $shipments = $this->shipmentDomain->getAllShipments();
+            $queries = DB::getQueryLog();
+
             return response()->json(array(
                 'success' => true,
-                'shipments' => $this->shipmentDomain->getAllShipments()
+                'shipments' => $shipments,
+                'queries' => $queries
             ));
         }catch (\Exception $ex){
-            return response()->json(array('success' => false));
+            return response()->json(array('success' => false,'msg'=>$ex->getMessage()));
         }
     }
 

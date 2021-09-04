@@ -45,4 +45,10 @@ class EloquentShipmentRepository extends EloquentRepository implements ShipmentR
             ->whereRaw('CAST(delivery_date as date) = CAST(? as date)',[$date])
             ->get();
     }
+
+    public function changeShipmentState(int $shipment_id, int $state_id)
+    {
+        return $this->update(['state_id'=>$state_id],$shipment_id);
+
+    }
 }

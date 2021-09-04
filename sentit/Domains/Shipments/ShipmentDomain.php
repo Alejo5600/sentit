@@ -71,4 +71,11 @@ class ShipmentDomain
     public function getShipmentsByCityAndDate(int $city_id,string $date){
         return $this->shipmentRepository->getShipmentsByCityAndDate($city_id,$date);
     }
+
+    public function changeShipmentState(int $shipment_id,int $state_id){
+        if($state_id < 1 || $state_id > 4 ){
+            throw new DomainRuleException('Unrecognoized state');
+        }
+        return $this->shipmentRepository->changeShipmentState($shipment_id,$state_id);
+    }
 }

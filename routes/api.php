@@ -28,6 +28,7 @@ Route::middleware('auth:api')->group(function(){
     });
     Route::get('cities',[\App\Http\Controllers\CityController::class,'index']);
     Route::get('shipmentsByCity/{city}/{date}',[\App\Http\Controllers\ShipmentController::class,'getShipmentsByCity']);
+    Route::put('shipmentState',[\App\Http\Controllers\ShipmentController::class,'changeShipmentState']);
 });
 
 

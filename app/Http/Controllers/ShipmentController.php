@@ -103,4 +103,15 @@ class ShipmentController extends Controller
             return response()->json(array('success'=>false));
         }
     }
+
+    public function changeShipmentState(Request $request){
+        try{
+            $shipment_id = $request->get('shipment');
+            $state_id = $request->get('state');
+            $updated = $this->shipmentDomain->changeShipmentState($shipment_id,$state_id);
+            return response()->json(array('success' => $updated ? true : false));
+        }catch (\Exception $ex){
+            return response()->json(array('success'=>false));
+        }
+    }
 }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <shipment_search></shipment_search>
+        <shipment_search v-on:shipmentsReceived="shipmentsReceived"></shipment_search>
         <div>
             <b-table responsive  striped hover :items="shipments">
                 <template #cell(state)="row">
@@ -10,6 +10,14 @@
                     <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
                         Detail
                     </b-button>
+                    <b-dropdown size="sm" id="dropdown-1" text="State" class="m-md-2">
+                        <b-dropdown-item>Collected</b-dropdown-item>
+                        <b-dropdown-item>Awaiting departure</b-dropdown-item>
+                        <b-dropdown-item>In transit</b-dropdown-item>
+                        <b-dropdown-item>Delivered</b-dropdown-item>
+                    </b-dropdown>
+                    <b-button size="sm">Editar</b-button>
+
                 </template>
             </b-table>
         </div>
@@ -45,6 +53,10 @@
             this.getShipments();
         },
         methods : {
+            shipmentsReceived(shipments){
+                this.shipments = [];
+                this.showShipments(shipments);
+            },
             resetInfoModal() {
                 this.infoModal.title = ''
                 this.infoModal.content = ''

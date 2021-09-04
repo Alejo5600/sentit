@@ -44,8 +44,6 @@
             shipment : Object
         },
         mounted(){
-            console.log("Hola");
-            console.log(this.shipment);
           this.info.sender = this.shipment.sender.name +' '+ this.shipment.sender.surname;
           this.info.receiver = this.shipment.receiver.name +' '+ this.shipment.receiver.surname;
           this.info.shipment_date = this.shipment.shipment_date;

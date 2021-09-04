@@ -12,17 +12,18 @@
                 </b-form-group>
             </b-col>
             <b-col cols="6">
-                <b-form-group  label="Date:" label-for="input-date">
-                    <b-form-datepicker id="input-date"  class="mb-2"></b-form-datepicker>
+                <b-form-group  label="Delivery date:" label-for="input-date">
+                    <b-form-datepicker id="input-date" v-model="form.delivery_date"  class="mb-2"></b-form-datepicker>
                 </b-form-group>
             </b-col>
             <b-col cols="2">
                 <br>
-                <b-button class="mt-2">
+                <b-button class="mt-2" v-on:click="getShipments">
                     <b-icon-search></b-icon-search>
                 </b-button>
             </b-col>
         </b-row>
+
     </div>
 </template>
 <script>
@@ -33,12 +34,30 @@
         data() {
             return {
                 form: {
-                    city : ''
+                    city : '',
+                    delivery_date : '',
                 },
                 cities: [],
             }
         },
         methods : {
+            getShipments(){
+
+              fetch(`api/shipmentsByCity/${this.form.city}/${this.form.delivery_date}`,{
+                  method : 'GET',
+                  headers : {
+                      'Content-Type': 'application/json',
+                      'Authorization' : 'Bearer '+localStorage.getItem("jwt")
+                  }
+              })
+              .then(data => data.json())
+              .then(data => {
+                  if(!data.success){
+                      return false;
+                  }
+                  this.$emit('shipmentsReceived',data.shipments);
+              })
+            },
             getCities(){
                 fetch('api/cities',{
                     method : 'GET',
@@ -52,7 +71,6 @@
                         if(!data.success){
                             return false;
                         }
-                        console.log(data);
                         this.cities = [];
                         data.cities.forEach(city => {
                             this.cities.push({
@@ -62,6 +80,7 @@
                         })
                     });
             },
+
         }
     }
 </script>

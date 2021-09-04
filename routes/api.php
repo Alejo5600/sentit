@@ -27,6 +27,7 @@ Route::middleware('auth:api')->group(function(){
         Route::get('/getByDocument/{document}',[\App\Http\Controllers\CustomerController::class,'getByDocument']);
     });
     Route::get('cities',[\App\Http\Controllers\CityController::class,'index']);
+    Route::get('shipmentsByCity/{city}/{date}',[\App\Http\Controllers\ShipmentController::class,'getShipmentsByCity']);
 });
 
 

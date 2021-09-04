@@ -67,4 +67,8 @@ class ShipmentDomain
     public function updateShipment(ShipmentModel $model,int $shipment_id){
         return $this->shipmentRepository->update($model->toArray(true),$shipment_id);
     }
+
+    public function getShipmentsByCityAndDate(int $city_id,string $date){
+        return $this->shipmentRepository->getShipmentsByCityAndDate($city_id,$date);
+    }
 }

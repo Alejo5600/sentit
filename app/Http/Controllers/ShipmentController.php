@@ -39,15 +39,10 @@ class ShipmentController extends Controller
     public function index()
     {
         try {
-
-            DB::connection()->enableQueryLog();
             $shipments = $this->shipmentDomain->getAllShipments();
-            $queries = DB::getQueryLog();
-
             return response()->json(array(
                 'success' => true,
                 'shipments' => $shipments,
-                'queries' => $queries
             ));
         }catch (\Exception $ex){
             return response()->json(array('success' => false,'msg'=>$ex->getMessage()));
@@ -97,14 +92,15 @@ class ShipmentController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-
+    public function getShipmentsByCity($city,$date){
+        try{
+            $shipments = $this->shipmentDomain->getShipmentsByCityAndDate($city,$date);
+            return response()->json(array(
+                'success' => true,
+                'shipments' => $shipments
+            ));
+        }catch (\Exception $ex){
+            return response()->json(array('success'=>false));
+        }
     }
 }

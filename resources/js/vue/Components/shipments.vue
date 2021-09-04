@@ -11,10 +11,10 @@
                         Detail
                     </b-button>
                     <b-dropdown size="sm" id="dropdown-1" text="State" class="m-md-2">
-                        <b-dropdown-item>Collected</b-dropdown-item>
-                        <b-dropdown-item>Awaiting departure</b-dropdown-item>
-                        <b-dropdown-item>In transit</b-dropdown-item>
-                        <b-dropdown-item>Delivered</b-dropdown-item>
+                        <b-dropdown-item @click="changeState(row.item.options.shipment_id,1)">Collected</b-dropdown-item>
+                        <b-dropdown-item @click="changeState(row.item.options.shipment_id,2)">Awaiting departure</b-dropdown-item>
+                        <b-dropdown-item @click="changeState(row.item.options.shipment_id,3)">In transit</b-dropdown-item>
+                        <b-dropdown-item @click="changeState(row.item.options.shipment_id,4)">Delivered</b-dropdown-item>
                     </b-dropdown>
                     <b-button size="sm">Editar</b-button>
 
@@ -53,6 +53,28 @@
             this.getShipments();
         },
         methods : {
+            changeState(shipment,state){
+                let data = {
+                    state : state ,
+                    shipment :shipment,
+                };
+                fetch('api/shipmentState',{
+                    method : 'PUT',
+                    body : JSON.stringify(data),
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'Authorization' : 'Bearer '+localStorage.getItem("jwt"),
+                        'Accept': 'application/json',
+                    }
+                })
+                .then(data => data.json())
+                .then(data => {
+                    if(!data.success){
+                        return false;
+                    }
+                    this.getShipments();
+                })
+            },
             shipmentsReceived(shipments){
                 this.shipments = [];
                 this.showShipments(shipments);

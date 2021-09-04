@@ -100,6 +100,7 @@
                     this.alertMsg= '';
                     this.hasAlert = false;
                     localStorage.setItem("jwt",data.access_token);
+                    this.$router.push({name : "shipments"})
 
                 })
 

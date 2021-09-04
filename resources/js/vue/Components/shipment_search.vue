@@ -41,6 +41,7 @@
             }
         },
         methods : {
+
             getShipments(){
 
               fetch(`api/shipmentsByCity/${this.form.city}/${this.form.delivery_date}`,{

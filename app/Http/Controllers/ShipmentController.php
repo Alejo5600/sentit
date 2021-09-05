@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use SentIt\Exceptions\DomainRuleException;
 use SentIt\Repositories\CustomerAddressRepositoryInterface;
@@ -49,6 +50,18 @@ class ShipmentController extends Controller
         }
     }
 
+    public function show($id){
+        try{
+            $shipment = $this->shipmentDomain->findShipment($id);
+            return response()->json(array(
+                'success'=> true,
+                'shipment' => $shipment
+            ));
+        }catch (\Exception $ex){
+            return response()->json(array('success'=>false));
+        }
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -60,7 +73,7 @@ class ShipmentController extends Controller
     {
         try{
             $model = new ShipmentModel($request->all());
-
+            $model->setCreatedBy(Auth::user()->user_id);
             return response()->json(array(
                'success' => true,
                'shipment' => $this->shipmentDomain->storeShipment($model)
@@ -68,7 +81,7 @@ class ShipmentController extends Controller
         }catch (DomainRuleException $ex){
             return response()->json(array('success' => false,'msg'=>$ex->getMessage()));
         }catch (\Exception $ex){
-            return response()->json(array('success' => false));
+            return response()->json(array('success' => false,'msg'=>$ex->getMessage()));
         }
     }
 
@@ -85,9 +98,9 @@ class ShipmentController extends Controller
             $model = new ShipmentModel($request->all());
             $model->setStateId($request->get('state_id'));
             $updated = $this->shipmentDomain->updateShipment($model,$id);
-            return response()->json(array('success' => $updated == 1));
+            return response()->json(array('success' => $updated == 1,'updated'=>$updated));
         }catch (\Exception $ex){
-            return response()->json(array('success' => false));
+            return response()->json(array('success' => false,'msg'=>$ex->getMessage()));
         }
 
     }

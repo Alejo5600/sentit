@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,14 +10,17 @@ class Shipment extends Model
 {
     use HasFactory;
     protected $primaryKey = 'shipment_id';
-    protected $fillable = ['description','shipment_date','start_address','arrival_address','created_by','state_id'];
+    protected $fillable = ['description','shipment_date','delivery_date','start_address','arrival_address','created_by','state_id'];
 
     function start_adress_obj(){
-        return $this->belongsTo(\App\Models\CustomerAddress::class,'start_address','customer_address_id');
+        return $this
+            ->belongsTo(CustomerAddress::class,'start_address','customer_address_id')
+            ->with(['customer','city']);
     }
 
     function arrival_adress_obj(){
-        return $this->belongsTo(\App\Models\CustomerAddress::class,'arrival_address','customer_address_id');
+        return $this->belongsTo(CustomerAddress::class,'arrival_address','customer_address_id')
+            ->with(['customer','city']);
     }
 
     function sender(){
@@ -25,7 +29,7 @@ class Shipment extends Model
             CustomerAddress::class,
             'customer_id',
             'customer_id',
-            'start_address',
+            'shipment_id',
             'customer_address_id'
         );
     }
@@ -35,7 +39,7 @@ class Shipment extends Model
             CustomerAddress::class,
             'customer_id',
             'customer_id',
-            'arrival_address',
+            'shipment_id',
             'customer_address_id'
         );
     }

@@ -4,6 +4,7 @@
 namespace SentIt\Domains\Shipments;
 
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use SentIt\Repositories\EloquentRepository;
 use SentIt\Repositories\ShipmentRepositoryInterface;
 
@@ -31,6 +32,13 @@ class EloquentShipmentRepository extends EloquentRepository implements ShipmentR
         return $this->model->with($this->relationships)->get();
     }
 
+    public function find(int $id)
+    {
+        return $this->model
+            ->with($this->relationships)
+            ->where($this->model->getKeyName(), $id)
+            ->first();
+    }
 
 
     public function getShipmentsByCityAndDate(int $city_id, string $date)

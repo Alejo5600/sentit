@@ -44,15 +44,16 @@
             shipment : Object
         },
         mounted(){
-          this.info.sender = this.shipment.sender.name +' '+ this.shipment.sender.surname;
-          this.info.receiver = this.shipment.receiver.name +' '+ this.shipment.receiver.surname;
+            console.log(this.shipment);
+          this.info.sender = this.shipment.start_adress_obj.customer.name +' '+ this.shipment.start_adress_obj.customer.surname;
+          this.info.receiver = this.shipment.arrival_adress_obj.customer.name +' '+ this.shipment.arrival_adress_obj.customer.surname;
           this.info.shipment_date = this.shipment.shipment_date;
           this.info.delivery_date = this.shipment.delivery_date;
           this.info.description = this.shipment.description;
           this.info.sender_address = this.shipment.start_adress_obj.address;
           this.info.receiver_address = this.shipment.arrival_adress_obj.address;
-          this.info.start_city = this.shipment.initial_city.name;
-          this.info.end_city = this.shipment.end_city.name;
+          this.info.start_city = this.shipment.start_adress_obj.city.name;
+          this.info.end_city = this.shipment.arrival_adress_obj.city.name;
           this.actual_state = this.shipment.state_id;
 
 

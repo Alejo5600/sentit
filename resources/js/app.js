@@ -6,6 +6,7 @@ import router from "./vue/router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
+export const bus = new Vue();
 
 
 Vue.use(BootstrapVue);

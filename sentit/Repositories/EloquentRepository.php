@@ -34,10 +34,6 @@ class EloquentRepository implements RepositoryInterface
 
     public function find(int $id)
     {
-        if (null == $user = $this->model->find($id)) {
-            throw new ModelNotFoundException(get_class($this->model)." domain not found");
-        }
-
-        return $user;
+        return $this->model->find($id);
     }
 }

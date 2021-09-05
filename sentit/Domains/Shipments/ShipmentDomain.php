@@ -42,7 +42,7 @@ class ShipmentDomain
         //First we have to check if all foreign columns are ok
         $this->checkRules($model);
         //when all relationships are ok then we create the shipment
-        return $this->shipmentRepository->create($model->toArray());
+        return $this->shipmentRepository->create($model->toArray(true));
     }
 
     private function checkRules(ShipmentModel $model){
@@ -77,5 +77,9 @@ class ShipmentDomain
             throw new DomainRuleException('Unrecognoized state');
         }
         return $this->shipmentRepository->changeShipmentState($shipment_id,$state_id);
+    }
+
+    public function findShipment($id){
+        return $this->shipmentRepository->find($id);
     }
 }

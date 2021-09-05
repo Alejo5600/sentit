@@ -21,6 +21,6 @@ class EloquentCustomerRepository extends EloquentRepository implements CustomerR
 
     public function getCustomerByDocument(string $document)
     {
-        return $this->model->where('document',$document)->first();
+        return $this->model->with(['addresses'])->where('document',$document)->first();
     }
 }

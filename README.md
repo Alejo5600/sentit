@@ -60,6 +60,7 @@ put the following in mysql section
 We create x amount of users in the users table for tests with random emails and key equals to password.
 $php artisan db:seed
 
+### OAuth Initialization
 $php artisan passport:install
 
 ### Users you can use

@@ -110,6 +110,14 @@
                     start_address : this.form.start_address_id,
                     arrival_address : this.form.end_address_id
                 };
+                for(const field in data){
+                    console.log("field ",field," val ",data[field])
+                    if(data[field] == '' || data[field] == null ){
+                        this.$toast.error("Field " + field +' is required');
+                        return false;
+                    }
+
+                }
                 this.form.shipment_id > 0 ? this.updateShipment(data) : this.createShipment(data) ;
             },
             createShipment(data){

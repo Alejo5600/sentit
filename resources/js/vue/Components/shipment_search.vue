@@ -43,7 +43,10 @@
         methods : {
 
             getShipments(){
-
+              if(this.form.city == '' || this.form.delivery_date ==''){
+                  this.$toast.warning("You must select city and delivery date");
+                  return;
+              }
               fetch(`api/shipmentsByCity/${this.form.city}/${this.form.delivery_date}`,{
                   method : 'GET',
                   headers : {

@@ -82,7 +82,6 @@
         methods: {
             onSubmit(event) {
                 event.preventDefault()
-                alert(JSON.stringify(this.form))
                 fetch('api/login',{
                     method : 'POST',
                     body : JSON.stringify(this.form),
@@ -100,6 +99,7 @@
                     this.alertMsg= '';
                     this.hasAlert = false;
                     localStorage.setItem("jwt",data.access_token);
+                    localStorage.setItem("user",JSON.stringify(data.user));
                     this.$router.push({name : "shipments"})
 
                 })

@@ -45,4 +45,10 @@ class UserController extends Controller
         ]);
 
     }
+
+    public function logout(){
+        $user = Auth::user()->token();
+        $user->revoke();
+        return response()->json(array('success'=>true));
+    }
 }

@@ -21,13 +21,32 @@
                     <b-nav-item-dropdown right>
                         <!-- Using 'button-content' slot -->
                         <template #button-content>
-                            <em>User</em>
+                            <em>{{user}}</em>
                         </template>
-                        <b-dropdown-item href="#">Profile</b-dropdown-item>
-                        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+                        <b-dropdown-item href="#" @click="logout">Sign Out</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
     </div>
 </template>
+<script>
+    export default {
+        props:{
+            user : String
+        },
+        methods : {
+            logout(){
+                fetch('api/logout',{
+                    method : 'GET',
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'Authorization' : 'Bearer '+localStorage.getItem("jwt"),
+                        'Accept': 'application/json',
+                    }
+                });
+                this.$router.push({name : "login"})
+            }
+        }
+    }
+</script>

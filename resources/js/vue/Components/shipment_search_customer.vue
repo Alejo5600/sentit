@@ -88,6 +88,9 @@
                 })
                 .then(data => data.json())
                 .then(data => {
+                    if(!data.customer){
+                        this.$toast.warning("Document not found");
+                    }
                     data = data.customer;
                     this.customer_name = data.name + ' ' +data.surname;
                     this.addresses_options = [];

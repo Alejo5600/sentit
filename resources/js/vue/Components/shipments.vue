@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <b-container>
         <shipment_search v-on:shipmentsReceived="shipmentsReceived"></shipment_search>
         <b-button variant="success" @click="shipmentForm(0)">Create Shipment</b-button>
         <div>
@@ -34,10 +34,10 @@
 
         </b-modal>
         <!-- Add / Edit modal -->
-        <b-modal size="xl" title="Add/edit" id="modal-shipment-form" @ok="saveShipment">
+        <b-modal size="xl" title="Shipment" id="modal-shipment-form" ref="shipment-form" @ok="saveShipment" ok-title="save">
             <shipment_form :shipment_id="form_shipment_id"></shipment_form>
         </b-modal>
-    </div>
+    </b-container>
 </template>
 <script>
     import shipment_search from "./shipment_search";
@@ -67,11 +67,13 @@
             }
         },
         mounted(){
+
             this.getShipments();
             bus.$on('getShipments',this.getShipments)
         },
         methods : {
-            saveShipment(){
+            saveShipment(e){
+              e.preventDefault();
               bus.$emit('saveShipment');
             },
             changeState(shipment,state){
@@ -116,7 +118,8 @@
                 this.$root.$emit('bv::show::modal', 'modal-shipment-form');
             },
             showShipments(shipments){
-                shipments.forEach(sh => {
+                this.shipments = [];
+                shipments.slice().reverse().forEach(sh => {
                     let shipment = {};
                     shipment.state = sh.state,
                     shipment.sender = sh.start_adress_obj.customer?.name +'  '+(sh.start_adress_obj.customer?.surname);
@@ -126,9 +129,12 @@
                     shipment.delivery_date = sh.delivery_date;
                     shipment.options = sh;
                     this.shipments.push(shipment);
+
                 })
             },
             getShipments(){
+                this.$root.$emit('hide::modal', 'modal-shipment-form')
+                this.$refs["shipment-form"].hide();
                 this.isBusy = true;
                 fetch('api/shipments',{
                     method : 'GET',

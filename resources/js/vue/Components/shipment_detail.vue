@@ -17,7 +17,8 @@
             </b-row>
             <b-row>
                 <b-col cols="6">
-                    <b-img src="https://www.hostinet.com/formacion/wp-content/uploads/2016/01/googlemaps.jpg" fluid-grow></b-img>
+                    <!--<b-img src="https://www.hostinet.com/formacion/wp-content/uploads/2016/01/googlemaps.jpg" fluid-grow></b-img>-->
+                    <LeaftMap :map-address="info.receiver_address"></LeaftMap>
                 </b-col>
                 <b-col cols="6">
 
@@ -39,7 +40,11 @@
 </template>
 
 <script>
+    import leafmap from "./leafmap";
     export default {
+        components :{
+            'LeaftMap' : leafmap
+        },
         props : {
             shipment : Object
         },

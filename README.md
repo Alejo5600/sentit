@@ -66,3 +66,30 @@ front
 npm run hot
 ```
 
+### Project Structure
+Here are the most important folders of the project
+```bash
+.
+├── app (Laravel stuff)
+│   ├── Http
+│       ├── Controllers (All laravel controllers)
+│       ├── Models (Laravel models Eloquent Active Record)
+│       └── Providers
+│           ├──AppServiceProvide.php (Here you tell laravel Container wich class instantiate depending on interface type)
+├── database
+│   ├── migrations (Contain all laravel migrations to create tables)
+│   └── seeders (Contain laravel seeders to create base data )
+├── resources
+│   ├── js
+│       └── vue (All Frontend in Vue)
+│   ├── sentit (Here is all busines logic)
+│       ├── Domains (here are all folders that correspond to the domain)
+│           └──DomainFolder (Ex: Cities, Shipments ...)
+│               ├── Domain.php (File with busines logic Ex: ShipmentDomain.php)
+│               ├── DomainModel.php (File to model entity independient from the framework)
+│               └── EloquentDomainRepository (File that represents the repository for Eloquent Orm)
+│       ├── Exceptions ( Custom Exceptions for Busines logic)
+│       ├── Repositories (All Repositories interfaces and Repositories super class) 
+├── .env (File to configure all enviroments variables)
+└── README.md
+```

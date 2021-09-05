@@ -65,8 +65,11 @@
                 senderOptions : [],
             }
         },
+        beforeDestroy() {
+            bus.$off('saveShipmentEvent');
+        },
         mounted(){
-            bus.$on('saveShipment',this.saveShipment)
+            bus.$on('saveShipmentEvent',this.saveShipment)
             if(this.shipment_id > 0){
                 this.getData()
             }

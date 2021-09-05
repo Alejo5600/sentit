@@ -35,7 +35,7 @@
         </b-modal>
         <!-- Add / Edit modal -->
         <b-modal size="xl" title="Shipment" id="modal-shipment-form" ref="shipment-form" @ok="saveShipment" ok-title="save">
-            <shipment_form :shipment_id="form_shipment_id"></shipment_form>
+            <shipment_form :shipment_id="form_shipment_id" id="shipmentFomrId"></shipment_form>
         </b-modal>
     </b-container>
 </template>
@@ -66,6 +66,7 @@
 
             }
         },
+
         mounted(){
 
             this.getShipments();
@@ -74,7 +75,7 @@
         methods : {
             saveShipment(e){
               e.preventDefault();
-              bus.$emit('saveShipment');
+              bus.$emit('saveShipmentEvent');
             },
             changeState(shipment,state){
                 let data = {

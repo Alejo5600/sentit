@@ -34,14 +34,14 @@ $ php artisan key:generate
 
 create a database called sentit
 and configure in the .env
-
+```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=sentit
 DB_USERNAME=root
 DB_PASSWORD=
-
+```
 create the tables in the db
 $php artisan migrate
 

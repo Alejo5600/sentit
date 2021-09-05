@@ -93,3 +93,6 @@ Here are the most important folders of the project
 ├── .env (File to configure all enviroments variables)
 └── README.md
 ```
+
+### Database Structure
+![alt text](https://raw.githubusercontent.com/Alejo5600/imagenes/main/SentItStructure.png)

@@ -42,8 +42,14 @@ DB_DATABASE=sentit
 DB_USERNAME=root
 DB_PASSWORD=
 ```
-create the tables in the db
-$php artisan migrate
+create the DB tables there are two options. 
+* Laravel Mirgrations
+* Run Sql File
+##### Sql File
+Go to ./sql/sentit_db.sql and execute file in your DB
+
+##### Migrations
+$ php artisan migrate
 
 
 if the php artisan migration command generates an error, it is because of the mysql version, go to the file that is in config / database.php
@@ -55,6 +61,14 @@ We create x amount of users in the users table for tests with random emails and 
 $php artisan db:seed
 
 $php artisan passport:install
+
+### Users you can use
+If you choose sql/sentit_db.sql you can use this users:
+* adrien30@example.net    Pass: password 
+* eli.windler@example.org Pass: password
+
+In both cases Migrations and .sql file you can go to users table copy an email for user and pass allways is set to password
+
 
 ### Running the server ⚙
 back️
